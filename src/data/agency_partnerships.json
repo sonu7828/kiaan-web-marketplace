@@ -1,0 +1,88 @@
+[
+  {
+    "id": "agency_01",
+    "name": "Apex Marketing Solutions",
+    "type": "Referral",
+    "status": "Active",
+    "contactName": "Jane Cooper",
+    "contactEmail": "jane@apexmarketing.com",
+    "contactPhone": "+1-555-0199",
+    "commissionRate": 15,
+    "referrals": [
+      {
+        "referralId": "ref_01",
+        "clientName": "Nova Retail Inc.",
+        "dealValue": 12500,
+        "status": "Won",
+        "dateCreated": "2026-07-15T10:00:00Z"
+      },
+      {
+        "referralId": "ref_02",
+        "clientName": "Eco Logistics",
+        "dealValue": 8500,
+        "status": "Lead",
+        "dateCreated": "2026-07-28T14:30:00Z"
+      }
+    ],
+    "followUps": [
+      {
+        "logId": "log_01",
+        "date": "2026-07-28T09:00:00Z",
+        "notes": "Reviewed new reseller tiered pricing. Client requested follow-up next week.",
+        "nextFollowUpDate": "2026-08-04T00:00:00Z"
+      }
+    ],
+    "notes": "Premium digital marketing agency based in NY. Focuses on e-commerce solutions.",
+    "dateCreated": "2026-07-10T12:00:00Z"
+  },
+  {
+    "id": "agency_02",
+    "name": "Zenith SaaS Resellers",
+    "type": "Reseller",
+    "status": "Active",
+    "contactName": "Michael Scott",
+    "contactEmail": "michael@zenithsaas.com",
+    "contactPhone": "+1-555-0245",
+    "commissionRate": 25,
+    "referrals": [
+      {
+        "referralId": "ref_03",
+        "clientName": "Dunder Mifflin",
+        "dealValue": 45000,
+        "status": "Won",
+        "dateCreated": "2026-07-12T09:15:00Z"
+      }
+    ],
+    "followUps": [
+      {
+        "logId": "log_02",
+        "date": "2026-07-29T10:00:00Z",
+        "notes": "Logged quarterly reseller review. Discussed expanding to HRM product stack.",
+        "nextFollowUpDate": "2026-07-29T00:00:00Z"
+      }
+    ],
+    "notes": "Enterprise software consultancy covering the Midwest region.",
+    "dateCreated": "2026-07-11T08:00:00Z"
+  },
+  {
+    "id": "agency_03",
+    "name": "Synergy Tech Partners",
+    "type": "Referral",
+    "status": "Pending",
+    "contactName": "Sarah Jenkins",
+    "contactEmail": "sarah@synergytech.io",
+    "contactPhone": "+1-555-0322",
+    "commissionRate": 10,
+    "referrals": [],
+    "followUps": [
+      {
+        "logId": "log_03",
+        "date": "2026-07-26T11:00:00Z",
+        "notes": "Introductory meeting. Sent partnership proposal documents.",
+        "nextFollowUpDate": "2026-07-29T00:00:00Z"
+      }
+    ],
+    "notes": "Cloud migration and consulting firm interested in referral programs.",
+    "dateCreated": "2026-07-25T15:00:00Z"
+  }
+]

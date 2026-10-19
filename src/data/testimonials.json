@@ -1,0 +1,56 @@
+[
+  {
+    "id": "t1",
+    "name": "Rajesh Mehta",
+    "company": "Study First Info",
+    "designation": "Founder & CEO",
+    "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    "rating": 5,
+    "review": "Kiaan Technology transformed our entire enrollment pipeline. Their CRM solution cut our response time by 85% and increased student enrollments by 30%. The team's understanding of our domain was unmatched — they delivered a production-ready system in just 10 weeks."
+  },
+  {
+    "id": "t2",
+    "name": "Dr. Ananya Sharma",
+    "company": "HealthSakhi",
+    "designation": "Chief Medical Officer",
+    "photo": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    "rating": 5,
+    "review": "The AI-powered health assistant Kiaan built has reached over 100,000 rural users. Their ability to integrate vernacular language models with medical guardrails was extraordinary. This is tech that genuinely saves lives in underserved communities."
+  },
+  {
+    "id": "t3",
+    "name": "Vikram Patel",
+    "company": "PlayGroundX",
+    "designation": "CTO & Co-Founder",
+    "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    "rating": 5,
+    "review": "From our payment gateway to our booking platform, Kiaan has been our go-to engineering partner. The PGX Gateway alone reduced checkout bounces by 22%. They think like product owners, not just developers — that's rare and invaluable."
+  },
+  {
+    "id": "t4",
+    "name": "Priya Nair",
+    "company": "TurfBook Sports",
+    "designation": "Head of Operations",
+    "photo": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    "rating": 4,
+    "review": "We needed a SaaS platform that could handle multi-venue scheduling, dynamic pricing, and real-time availability — Kiaan delivered all three flawlessly. Our venue partner onboarding time dropped by 60%, and customer complaints about double-bookings are now zero."
+  },
+  {
+    "id": "t5",
+    "name": "Arjun Kapoor",
+    "company": "NexGen Logistics",
+    "designation": "Managing Director",
+    "photo": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    "rating": 5,
+    "review": "Kiaan built our real-time fleet tracking and route optimization dashboard from scratch. Fuel costs are down 18% and on-time delivery rates jumped to 97%. Their engineering quality and communication throughout the project were top-tier."
+  },
+  {
+    "id": "t6",
+    "name": "Sneha Desai",
+    "company": "FinEdge Capital",
+    "designation": "VP of Technology",
+    "photo": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    "rating": 5,
+    "review": "Security and compliance were non-negotiable for our fintech platform. Kiaan's team delivered a PCI-DSS compliant architecture with end-to-end encryption, and they did it 2 weeks ahead of schedule. Their attention to detail in code quality is exceptional."
+  }
+]

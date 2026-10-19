@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:content="http://purl.org/rss/modules/content/"
+  xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kiaan Tech Talks</title>
+    <link>https://kiaantechnology.com/podcast</link>
+    <description><![CDATA[Deep dives into AI-driven software development, SaaS strategy, ERP/CRM implementation, and the future of enterprise technology. Hosted by the team at Kiaan Technology.]]></description>
+    <language>en</language>
+    <copyright>© 2026 Kiaan Technology. All rights reserved.</copyright>
+    <managingEditor>hello@kiaantechnology.com (Kiaan Technology)</managingEditor>
+    <webMaster>hello@kiaantechnology.com</webMaster>
+    <lastBuildDate>Thu, 15 Oct 2026 07:09:03 GMT</lastBuildDate>
+    <atom:link href="https://kiaantechnology.com/podcast/rss.xml" rel="self" type="application/rss+xml" />
+    <itunes:author>Kiaan Technology</itunes:author>
+    <itunes:summary><![CDATA[Deep dives into AI-driven software development, SaaS strategy, ERP/CRM implementation, and the future of enterprise technology. Hosted by the team at Kiaan Technology.]]></itunes:summary>
+    <itunes:owner>
+      <itunes:name>Kiaan Technology</itunes:name>
+      <itunes:email>hello@kiaantechnology.com</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://kiaantechnology.com/podcast/podcast-cover-optimized.webp" />
+    <image>
+      <url>https://kiaantechnology.com/podcast/podcast-cover-optimized.webp</url>
+      <title>Kiaan Tech Talks</title>
+      <link>https://kiaantechnology.com/podcast</link>
+    </image>
+    <itunes:category text="Technology" />
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <item>
+      <title>SaaS Pricing Models: Subscription, Usage-Based &amp; Hybrid</title>
+      <link>https://kiaantechnology.com/podcast/ep-006</link>
+      <guid isPermaLink="true">https://kiaantechnology.com/podcast/ep-006</guid>
+      <description><![CDATA[Choosing the wrong pricing model can kill a great SaaS product. We break down each model with real data.]]></description>
+      <content:encoded><![CDATA[Pricing is one of the highest-leverage decisions in any SaaS business. In this episode, we compare subscription, usage-based, and hybrid pricing models — diving into the math, the customer psychology, and the engineering implications of each. We share real examples from SaaS products we've built and what pricing changes drove the biggest revenue impacts.]]></content:encoded>
+      <enclosure url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" type="audio/mpeg" length="38320000" />
+      <pubDate>Tue, 15 Apr 2025 09:00:00 GMT</pubDate>
+      <itunes:title>SaaS Pricing Models: Subscription, Usage-Based &amp; Hybrid</itunes:title>
+      <itunes:summary><![CDATA[Choosing the wrong pricing model can kill a great SaaS product. We break down each model with real data.]]></itunes:summary>
+      <itunes:duration>00:39:55</itunes:duration>
+      <itunes:episode>6</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      
+    </item>
+    <item>
+      <title>The Hidden Cost of Technical Debt in Enterprise Software</title>
+      <link>https://kiaantechnology.com/podcast/ep-005</link>
+      <guid isPermaLink="true">https://kiaantechnology.com/podcast/ep-005</guid>
+      <description><![CDATA[Technical debt isn't just a developer problem — it's a business risk. We quantify it and share strategies to manage it.]]></description>
+      <content:encoded><![CDATA[Most CTOs know technical debt exists. Few can put a number on what it costs. In this episode, we explore how to measure, communicate, and systematically pay down technical debt in enterprise environments. We cover refactoring strategies, when to rewrite vs. patch, and how to make the business case to leadership for investing in code quality.]]></content:encoded>
+      <enclosure url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" type="audio/mpeg" length="42592000" />
+      <pubDate>Fri, 28 Mar 2025 09:00:00 GMT</pubDate>
+      <itunes:title>The Hidden Cost of Technical Debt in Enterprise Software</itunes:title>
+      <itunes:summary><![CDATA[Technical debt isn't just a developer problem — it's a business risk. We quantify it and share strategies to manage it.]]></itunes:summary>
+      <itunes:duration>00:44:22</itunes:duration>
+      <itunes:episode>5</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:author>Anil Verma</itunes:author>
+    </item>
+    <item>
+      <title>Scaling from 0 to 10,000 Users: Architecture Lessons Learned</title>
+      <link>https://kiaantechnology.com/podcast/ep-004</link>
+      <guid isPermaLink="true">https://kiaantechnology.com/podcast/ep-004</guid>
+      <description><![CDATA[Real-world stories of what breaks at scale, and how to design software that handles 10x growth without a full rewrite.]]></description>
+      <content:encoded><![CDATA[Every SaaS founder has a story about the day their product broke under load. We share architectural patterns — microservices, event-driven design, database sharding, and caching strategies — that help software survive rapid growth. This episode includes real war stories from products we've built and scaled at Kiaan Technology.]]></content:encoded>
+      <enclosure url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg" length="44640000" />
+      <pubDate>Mon, 10 Mar 2025 09:00:00 GMT</pubDate>
+      <itunes:title>Scaling from 0 to 10,000 Users: Architecture Lessons Learned</itunes:title>
+      <itunes:summary><![CDATA[Real-world stories of what breaks at scale, and how to design software that handles 10x growth without a full rewrite.]]></itunes:summary>
+      <itunes:duration>00:46:30</itunes:duration>
+      <itunes:episode>4</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      
+    </item>
+    <item>
+      <title>Building a CRM That Your Sales Team Will Actually Use</title>
+      <link>https://kiaantechnology.com/podcast/ep-003</link>
+      <guid isPermaLink="true">https://kiaantechnology.com/podcast/ep-003</guid>
+      <description><![CDATA[CRM adoption rates are notoriously low. We dig into the UX, workflow, and data design principles that change this.]]></description>
+      <content:encoded><![CDATA[Statistics show that over 65% of sales reps say CRM tools are too complex. In this episode, we dissect the root causes of poor CRM adoption and share design principles for building CRMs that fit the user's workflow — not the other way around. Featuring learnings from Kiaan's own CRM implementations for B2B clients across India.]]></content:encoded>
+      <enclosure url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg" length="49008000" />
+      <pubDate>Thu, 20 Feb 2025 09:00:00 GMT</pubDate>
+      <itunes:title>Building a CRM That Your Sales Team Will Actually Use</itunes:title>
+      <itunes:summary><![CDATA[CRM adoption rates are notoriously low. We dig into the UX, workflow, and data design principles that change this.]]></itunes:summary>
+      <itunes:duration>00:51:03</itunes:duration>
+      <itunes:episode>3</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:author>Priya Mehta</itunes:author>
+    </item>
+    <item>
+      <title>ERP vs. Custom Software: What Indian Enterprises Really Need</title>
+      <link>https://kiaantechnology.com/podcast/ep-002</link>
+      <guid isPermaLink="true">https://kiaantechnology.com/podcast/ep-002</guid>
+      <description><![CDATA[A frank conversation on when to buy an off-the-shelf ERP and when a custom-built solution delivers a better ROI.]]></description>
+      <content:encoded><![CDATA[Off-the-shelf ERP systems promise a lot — but for growing Indian enterprises, do they deliver? We break down the real costs of SAP and Oracle implementations versus building custom ERP systems tailored to your industry. We cover case studies from manufacturing, retail, and logistics sectors and give you a decision framework to pick the right path.]]></content:encoded>
+      <enclosure url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg" length="37232000" />
+      <pubDate>Sat, 01 Feb 2025 09:00:00 GMT</pubDate>
+      <itunes:title>ERP vs. Custom Software: What Indian Enterprises Really Need</itunes:title>
+      <itunes:summary><![CDATA[A frank conversation on when to buy an off-the-shelf ERP and when a custom-built solution delivers a better ROI.]]></itunes:summary>
+      <itunes:duration>00:38:47</itunes:duration>
+      <itunes:episode>2</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:author>Rahul Sharma</itunes:author>
+    </item>
+    <item>
+      <title>AI-Driven SaaS Development in 2025</title>
+      <link>https://kiaantechnology.com/podcast/ep-001</link>
+      <guid isPermaLink="true">https://kiaantechnology.com/podcast/ep-001</guid>
+      <description><![CDATA[How artificial intelligence is reshaping every layer of SaaS product development — from architecture to deployment.]]></description>
+      <content:encoded><![CDATA[In this debut episode, we sit down to explore how AI has fundamentally changed the way SaaS products are built, tested, and shipped. We cover everything from AI-assisted code generation to automated testing pipelines, and how Kiaan Technology is leveraging these tools for enterprise clients. We also discuss the real ROI of integrating AI into your development workflow and common pitfalls to avoid.]]></content:encoded>
+      <enclosure url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" length="40560000" />
+      <pubDate>Wed, 15 Jan 2025 09:00:00 GMT</pubDate>
+      <itunes:title>AI-Driven SaaS Development in 2025</itunes:title>
+      <itunes:summary><![CDATA[How artificial intelligence is reshaping every layer of SaaS product development — from architecture to deployment.]]></itunes:summary>
+      <itunes:duration>00:42:15</itunes:duration>
+      <itunes:episode>1</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,137 @@
+[
+  {
+    "slug": "study-first-info-crm",
+    "title": "Study First Info CRM",
+    "client": "Study First Info",
+    "category": "CRM / SAAS",
+    "type": "SaaS",
+    "result": "30% Enrollment Increase",
+    "desc": "A custom student enrollment CRM designed to eliminate manual tracking, optimize conversion pipelines, and automate counselor interactions in real-time.",
+    "image": "/images/crm_dashboard_mockup-optimized.webp",
+    "imageAlt": "Study First Info CRM Dashboard Interface",
+    "stats": "30% Enrollments",
+    "challenge": "A major educational consultancy was losing up to 40% of potential leads due to fragmented manual Excel sheets, delayed counselor responses, and zero automation in follow-ups. To resolve this, they partnered with us for custom <a href='/services/erp-crm-solutions' class='text-yellow-500 hover:underline'>CRM & ERP development</a> to automate their workflows.",
+    "blueprint": "We designed a multi-channel cloud CRM system featuring automatic lead capture from web forms, immediate automated WhatsApp and email outreach sequences, and a dynamic Kanban pipeline for counselor tracking.",
+    "execution": "Built and deployed in 10 weeks, incorporating detailed role-based access controls and custom reporting dashboards. Transitioned the advisory team with zero data loss or operational interruptions.",
+    "technologies": ["Next.js", "Node.js", "MongoDB", "Express", "WhatsApp API"],
+    "impactMetrics": [
+      { "label": "Response Time Reduction", "value": "-85%" },
+      { "label": "Conversion Rate", "value": "+45%" },
+      { "label": "Enrollments Scaled", "value": "+30%" }
+    ],
+    "architectureImage": "/images/case-studies/crm-analytics-optimized.webp",
+    "screenshots": [
+      "/images/case-studies/crm-dashboard-optimized.webp",
+      "/images/case-studies/crm-analytics-optimized.webp"
+    ],
+    "authorName": "Aarav Sharma",
+    "authorDesignation": "Senior Full Stack Engineer"
+  },
+  {
+    "slug": "healthsakhi-ai",
+    "title": "HealthSakhi AI",
+    "client": "HealthSakhi",
+    "category": "HEALTHTECH AI",
+    "type": "AI",
+    "result": "45% Clinic Load Cut",
+    "desc": "An AI-powered vernacular voice and text assistant enabling rural populations to pre-screen medical symptoms and connect with qualified local doctors.",
+    "image": "/images/healthsakhi_app_mockup-optimized.webp",
+    "imageAlt": "HealthSakhi AI Mobile App Interface",
+    "stats": "100k+ Users",
+    "challenge": "Substantial shortages of rural medical personnel led to overcrowded central clinics, with patients travelling hours only to find trivial issues or delayed critical diagnoses. We developed an offline-resilient mobile web assistant utilizing advanced <a href='/services/ai-automation' class='text-yellow-500 hover:underline'>AI & automation</a> to pre-screen medical symptoms.",
+    "blueprint": "We architected an offline-resilient mobile web assistant powered by fine-tuned local language models and voice-to-text translators, integrated with a lightweight clinic-locator API.",
+    "execution": "Integrated regional dialect models (Hindi, Marathi, etc.) with strict medical boundary guardrails. Conducted pilot programs with healthcare workers on-ground to refine the conversational UX.",
+    "technologies": ["React Native", "FastAPI", "OpenAI GPT-4", "Whisper API", "PostgreSQL"],
+    "impactMetrics": [
+      { "label": "Active Rural Users", "value": "100,000+" },
+      { "label": "Unnecessary Visits", "value": "-45%" },
+      { "label": "Dialect Accuracy", "value": "98%" }
+    ],
+    "architectureImage": "/images/case-studies/healthsakhi-chat-optimized.webp",
+    "screenshots": [
+      "/images/case-studies/healthsakhi-chat-optimized.webp"
+    ],
+    "authorName": "Ananya Patel",
+    "authorDesignation": "Lead AI Research Engineer"
+  },
+  {
+    "slug": "pgx-payment-gateway",
+    "title": "PGX Payment Gateway",
+    "client": "PlayGroundX",
+    "category": "FINTECH GATEWAY",
+    "type": "Web",
+    "result": "22% Checkout Bounce Cut",
+    "desc": "An ultra-low latency intelligent payment routing gateway built to handle heavy transactional surges with automated instant retry mechanism.",
+    "image": "/images/pgx_gateway_mockup-optimized.webp",
+    "imageAlt": "PGX Payment Gateway Dashboard",
+    "stats": "99.99% Uptime",
+    "challenge": "High cart abandonment rates during gaming flash sales occurred because traditional payment processors failed to scale under high-concurrency requests. We engineered an ultra-low latency gateway leveraging our <a href='/services/custom-software-development' class='text-yellow-500 hover:underline'>custom software development</a> expertise.",
+    "blueprint": "We built a concurrent Go gateway using a Redis-backed queue and distributed locking, capable of dynamic multi-acquirer transaction routing and smart retries.",
+    "execution": "Implemented custom lightweight API SDKs for seamless client-side checkouts, scaling infrastructure with auto-healing load balancers on AWS ECS.",
+    "technologies": ["Go", "Redis", "PostgreSQL", "AWS ECS", "Docker", "Stripe API"],
+    "impactMetrics": [
+      { "label": "Transaction Success", "value": "99.99%" },
+      { "label": "Average Latency", "value": "150ms" },
+      { "label": "Checkout Drops", "value": "-22%" }
+    ],
+    "architectureImage": "/images/case-studies/pgx-dashboard-optimized.webp",
+    "screenshots": [
+      "/images/case-studies/pgx-dashboard-optimized.webp"
+    ],
+    "authorName": "Vikram Malhotra",
+    "authorDesignation": "Principal Backend Architect"
+  },
+  {
+    "slug": "playgroundx",
+    "title": "PlayGroundX Platform",
+    "client": "PlayGroundX",
+    "category": "WEB3 GAMING",
+    "type": "Web",
+    "result": "80% Drop-off Decrease",
+    "desc": "A unified Web3 gaming and tournament platform removing blockchain complexity with gasless transaction layers and social/email onboarding.",
+    "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "PlayGroundX Web3 Gaming Platform Interface",
+    "stats": "250k+ Games Played",
+    "challenge": "High barriers of entry, including Web3 wallet setups, gas token acquisitions, and complex contract signatures, deterred typical Web2 gamers from joining tournament structures.",
+    "blueprint": "Designed a hybrid Next.js portal utilizing Account Abstraction smart contracts (ERC-4337) to sponsor gas fees, allowing instant social login wallet generation.",
+    "execution": "Created decentralized tournament smart contracts on EVM-compatible networks, optimized for millisecond-accurate match validation and automatic payout distributions.",
+    "technologies": ["Next.js", "Solidity", "Hardhat", "Ethers.js", "Thirdweb", "Vercel"],
+    "impactMetrics": [
+      { "label": "Games Played", "value": "250k+" },
+      { "label": "Wallet Setup Drop", "value": "-80%" },
+      { "label": "Tournament Volume", "value": "$1.2M" }
+    ],
+    "architectureImage": "/images/case-studies/playgroundx-lobby-optimized.webp",
+    "screenshots": [
+      "/images/case-studies/playgroundx-lobby-optimized.webp"
+    ],
+    "authorName": "Rohan Deshmukh",
+    "authorDesignation": "Senior Blockchain Engineer"
+  },
+  {
+    "slug": "turf-booking-saas",
+    "title": "Turf Booking SaaS",
+    "client": "TurfPro",
+    "category": "SPORTS SAAS",
+    "type": "SaaS",
+    "result": "35% Revenue Boost",
+    "desc": "A multi-tenant SaaS booking platform enabling sports arenas to coordinate schedules, offer real-time bookings, and implement dynamic demand pricing.",
+    "image": "/images/case-studies/turf-calendar-optimized.webp",
+    "stats": "400+ Venues",
+    "challenge": "Sports turf owners suffered regular revenue loss from double-booking disputes, unoptimized quiet slots, and the friction of manually collecting split payments from players.",
+    "blueprint": "Constructed a multi-tenant platform with Supabase backend and Prisma-driven Postgres schema, implementing real-time calendar updates via WebSockets and automated billing integrations.",
+    "execution": "Designed client dashboard and booking engine, adding a feature that dynamically discounts off-peak time slots and lets groups split payment shares directly.",
+    "technologies": ["Next.js", "PostgreSQL", "Prisma", "Supabase", "Razorpay", "Tailwind CSS"],
+    "impactMetrics": [
+      { "label": "Partner Venues", "value": "400+" },
+      { "label": "Schedule Conflicts", "value": "-90%" },
+      { "label": "Average Venue Revenue", "value": "+35%" }
+    ],
+    "architectureImage": "/images/case-studies/turf-calendar-optimized.webp",
+    "screenshots": [
+      "/images/case-studies/turf-calendar-optimized.webp"
+    ],
+    "authorName": "Nisha Verma",
+    "authorDesignation": "Senior Product Engineer"
+  }
+]

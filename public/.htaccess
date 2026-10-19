@@ -1,0 +1,53 @@
+# ── Apache Configuration for Next.js Static Export ──
+RewriteEngine On
+
+# 1. 301 Redirects for URL Restructuring
+Redirect 301 /solutions/custom-software/ /services/custom-software-development/
+Redirect 301 /solutions/saas-development/ /services/saas-development/
+Redirect 301 /solutions/ai-automation/ /services/ai-automation/
+Redirect 301 /ai-automation/ /services/ai-automation/
+Redirect 301 /solutions/web-development/ /services/web-development/
+Redirect 301 /solutions/mobile-development/ /services/mobile-app-development/
+Redirect 301 /solutions/erp-crm/ /services/erp-crm-solutions/
+Redirect 301 /solutions/healthcare/ /industries/healthcare-software/
+Redirect 301 /solutions/finance/ /industries/fintech-software/
+Redirect 301 /solutions/retail/ /industries/retail-technology/
+Redirect 301 /case-studies/study-first-info/ /case-studies/study-first-crm/
+Redirect 301 /case-studies/healthsakhi/ /case-studies/healthsakhi-ai/
+Redirect 301 /case-studies/pgx-gateway/ /case-studies/pgx-payment-gateway/
+
+# 2. Default landing page
+DirectoryIndex index.html
+
+# 3. Custom 404 Error Page
+ErrorDocument 404 /404.html
+
+# 4. Redirect external index.html requests to directory root
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+RewriteRule ^index\.html$ / [R=301,L]
+
+# 5. Clean URL routing for Next.js (serve folder/index.html if URL lacks trailing slash)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+# 6. Gzip Compression for Fast Loading
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml image/svg+xml
+</IfModule>
+
+# 7. Browser Caching for Maximum Performance
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>

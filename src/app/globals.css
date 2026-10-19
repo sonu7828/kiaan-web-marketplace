@@ -1,0 +1,576 @@
+@import "tailwindcss";
+/* Fonts loaded from @fontsource packages (no network required) */
+
+/* Hide scrollbar for horizontal scroll containers */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+:root {
+    /* Font family CSS variables (injected by @fontsource imports in layout.tsx) */
+    --font-anton: 'Anton', sans-serif;
+    --font-manrope: 'Manrope', sans-serif;
+    font-family: var(--font-manrope), 'Manrope', sans-serif;
+    color-scheme: dark;
+    --color-primary: #FFD60A;
+    /* Bright Yellow */
+    --color-accent: #FF3B30;
+    /* Vibrant Red */
+    --color-bg: #050505;
+    /* Deep Black */
+}
+
+/* ─── CLS Prevention: Ensure custom fonts swap in instantly ─────── */
+/* font-display:swap prevents invisible text (FOIT) during font load */
+@font-face {
+    font-family: 'Anton';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    size-adjust: 105%;
+    src: local('Anton');
+}
+
+@font-face {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    size-adjust: 100%;
+    src: local('Manrope');
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: #ffffff;
+    overflow-x: clip;
+    /* Performance optimizations */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: none;
+}
+
+/* Hardware accelerated layer promotion — removed blanket will-change.
+   Blanket will-change: transform on main caused unnecessary GPU layer
+   promotion, increasing memory pressure. Applied per-component instead. */
+main {
+    isolation: isolate;
+}
+
+/* Global Smoothness — font smoothing only */
+* {
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ─── INP / Paint optimization: defer off-screen section rendering ── */
+/* Apply .offscreen-section to any below-fold section component       */
+.offscreen-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px; /* estimated height — prevents layout shift */
+}
+
+/* Containment for repeated card/tile elements — reduces layout/paint scope */
+.contain-card {
+    contain: layout style paint;
+}
+
+/* Mobile overflow containment */
+.max-w-screen {
+    max-width: 100vw;
+}
+
+.font-display {
+    font-family: var(--font-anton), 'Anton', sans-serif;
+    letter-spacing: 0.02em;
+}
+
+/* Custom Scrollbar for hidden scroll effect */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Neo-Brutalist Card */
+.neo-card {
+    background-color: rgba(24, 24, 27, 0.5);
+    border: 1px solid #27272a;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform, box-shadow, border-color;
+}
+
+.neo-card:hover {
+    border-color: #eab308;
+    background-color: #18181b;
+    box-shadow: 12px 12px 0px 0px #FFD60A;
+    /* Hard shadow */
+    transform: translate(-6px, -6px);
+}
+
+/* Red Variant */
+.neo-card-red:hover {
+    border-color: #dc2626;
+    box-shadow: 12px 12px 0px 0px #FF3B30;
+}
+
+/* Text Selection */
+::selection {
+    background-color: #FFD60A;
+    color: black;
+}
+
+/* Animated Cyber Grid */
+.animated-grid {
+    background-size: 50px 50px;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    animation: grid-scroll 30s linear infinite;
+    will-change: transform;
+}
+
+@keyframes grid-scroll {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(50px);
+    }
+}
+
+/* CRT Scanline Effect */
+.scanlines::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.1));
+    background-size: 100% 4px;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.03;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Glitch Animation Keyframes */
+@keyframes glitch {
+
+    2%,
+    64% {
+        transform: translate(2px, 0) skew(0deg);
+    }
+
+    4%,
+    60% {
+        transform: translate(-2px, 0) skew(0deg);
+    }
+
+    62% {
+        transform: translate(0, 0) skew(5deg);
+    }
+}
+
+.animate-glitch {
+    animation: glitch 2s linear infinite;
+    /* Slowed down slightly */
+}
+
+/* Custom Animations */
+@keyframes slide-infinite {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-marquee {
+    animation: slide-infinite 20s linear infinite;
+    will-change: transform;
+}
+
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+/* Logo Glitter Animation */
+.logo-glitter {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.logo-glitter::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 214, 10, 0.1),
+            rgba(255, 255, 255, 0.7),
+            rgba(255, 214, 10, 0.1),
+            transparent);
+    transform: skewX(-20deg);
+    animation: logo-shimmer 3.5s infinite ease-in-out;
+}
+
+@keyframes logo-shimmer {
+    0% {
+        left: -200%;
+    }
+
+    35% {
+        left: 200%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+/* Premium Glassmorphism */
+.glass-panel {
+    background-color: rgba(24, 24, 27, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+    /* Removed global will-change — triggered compositing on every glass element.
+       Paint pressure is minimized by only promoting on active interaction. */
+}
+
+.glass-panel:hover {
+    will-change: backdrop-filter;
+}
+
+/* Text Mask Animation */
+.text-mask-reveal {
+    background: linear-gradient(to right, #fff 50%, #52525b 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.group:hover .text-mask-reveal {
+    background-position: 0 0;
+}
+
+/* Floating Animation */
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(2deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+.animate-float {
+    animation: float 5s ease-in-out infinite;
+}
+
+/* Cyber Glow Hub */
+.cyber-glow-yellow {
+    box-shadow: 0 0 30px rgba(255, 214, 10, 0.15), inset 0 0 10px rgba(255, 214, 10, 0.05);
+}
+
+.cyber-glow-red {
+    box-shadow: 0 0 30px rgba(255, 59, 48, 0.15), inset 0 0 10px rgba(255, 59, 48, 0.05);
+}
+
+/* 3D Transform Utilities */
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+/* WhatsApp Pulse Animation */
+@keyframes whatsapp-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+.animate-whatsapp-pulse {
+    animation: whatsapp-pulse 2s infinite;
+}
+
+@media print {
+    body * { visibility: hidden !important; }
+    .roi-print-report, .roi-print-report * { visibility: visible !important; }
+    .roi-print-report { position: absolute; inset: 0; width: 100%; border: 0 !important; background: #fff !important; color: #111 !important; padding: 20px !important; }
+    .roi-print-report * { color: #111 !important; background: transparent !important; box-shadow: none !important; }
+    .roi-print-report .print-hide, .print-hide { display: none !important; }
+    .vendor-print-report, .vendor-print-report * { visibility: visible !important; }
+    .vendor-print-report { position: absolute; inset: 0; width: 100%; border: 0 !important; background: #fff !important; color: #111 !important; padding: 20px !important; }
+    .vendor-print-report * { color: #111 !important; background: transparent !important; box-shadow: none !important; }
+    @page { margin: 12mm; }
+}
+
+/* Privacy sidebar thin scrollbar */
+.privacy-sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+
+.privacy-sidebar-scroll::-webkit-scrollbar {
+    width: 3px;
+}
+
+.privacy-sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.privacy-sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+}
+
+.privacy-sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Global page scrollbar — thin & subtle */
+html,
+body {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 4px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* ─── Internship Page V2 ───────────────────────────────────────────── */
+
+/* Timeline connector line */
+.timeline-connector {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(234, 179, 8, 0.3), rgba(234, 179, 8, 0.8), rgba(234, 179, 8, 0.3));
+    height: 2px;
+    top: 24px;
+    left: 48px;
+    right: 48px;
+    z-index: 0;
+}
+
+/* Vertical timeline for mobile */
+.timeline-connector-vertical {
+    position: absolute;
+    background: linear-gradient(180deg, rgba(234, 179, 8, 0.3), rgba(234, 179, 8, 0.8), rgba(234, 179, 8, 0.3));
+    width: 2px;
+    top: 48px;
+    bottom: 48px;
+    left: 24px;
+    z-index: 0;
+}
+
+/* Pricing card glow */
+.pricing-glow {
+    box-shadow:
+        0 0 40px rgba(234, 179, 8, 0.08),
+        inset 0 1px 0 rgba(234, 179, 8, 0.1);
+}
+
+.pricing-glow:hover {
+    box-shadow:
+        0 0 60px rgba(234, 179, 8, 0.12),
+        inset 0 1px 0 rgba(234, 179, 8, 0.15);
+}
+
+/* Reward box pulse */
+@keyframes reward-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.2); }
+    50% { box-shadow: 0 0 20px 4px rgba(234, 179, 8, 0.1); }
+}
+
+.reward-pulse {
+    animation: reward-pulse 3s ease-in-out infinite;
+}
+
+/* Accordion smooth open/close */
+.accordion-content {
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease;
+}
+
+/* Benefit counter badge */
+.benefit-counter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 10px;
+    font-weight: 900;
+    border-radius: 9999px;
+    background-color: #27272a;
+    color: #a1a1aa;
+    flex-shrink: 0;
+}
+
+/* Outcome check animation */
+@keyframes check-pop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.check-animate {
+    animation: check-pop 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Trust section tag */
+.trust-tag {
+    padding: 0.5rem 1rem;
+    background-color: rgba(24, 24, 27, 0.8);
+    border: 1px solid #27272a;
+    color: #d4d4d8;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.trust-tag:hover {
+    border-color: rgba(234, 179, 8, 0.5);
+    color: #eab308;
+}
+
+/* ─── Core Web Vitals: Reduce Motion Accessibility ──────────────────── */
+/* Pauses all infinite animations for users who prefer reduced motion.
+   Fixes CLS from layout-affecting animations and improves accessibility score. */
+@media (prefers-reduced-motion: reduce) {
+    .animated-grid,
+    .animate-marquee,
+    .animate-float,
+    .animate-glitch,
+    .logo-glitter::after,
+    .animate-whatsapp-pulse,
+    .reward-pulse {
+        animation: none !important;
+    }
+
+    * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+/* ─── WhatsApp & Tidio Chat Floating Widget Positioning ─────────── */
+/* 1. WhatsApp Button: Stays exactly where it is (bottom: 148px)
+   2. 'Chat with us' & Blue Message Icon: Moved vertically DOWN completely BELOW WhatsApp (bottom: 20px) */
+.whatsapp-floating-btn {
+    position: fixed !important;
+    bottom: 148px !important;
+    right: 14px !important;
+    z-index: 99999 !important;
+}
+
+#tidio-chat,
+#tidio-chat-iframe,
+#tidio-chat-container,
+div#tidio-chat,
+iframe#tidio-chat-iframe,
+iframe#tidio-chat-code,
+iframe[id*="tidio"],
+iframe[title*="Tidio"],
+iframe[src*="tidio"],
+div[id^="tidio"] {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: -10px !important;
+    z-index: 9998 !important;
+}
+
+@media (max-width: 768px) {
+    .whatsapp-floating-btn {
+        bottom: 138px !important;
+        right: 10px !important;
+    }
+    #tidio-chat,
+    #tidio-chat-iframe,
+    #tidio-chat-container,
+    div#tidio-chat,
+    iframe#tidio-chat-iframe,
+    iframe#tidio-chat-code,
+    iframe[id*="tidio"],
+    iframe[title*="Tidio"],
+    iframe[src*="tidio"],
+    div[id^="tidio"] {
+        bottom: 15px !important;
+        right: -8px !important;
+    }
+}
