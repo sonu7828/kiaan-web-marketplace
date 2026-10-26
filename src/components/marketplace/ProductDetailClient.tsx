@@ -12,14 +12,15 @@ import {
   FileCode2,
   Server,
   Headphones,
-  Sparkles,
-  Layers,
   ArrowRight,
   X,
   MessageSquare,
   Mail,
   Check,
-  Info,
+  Star,
+  Layers,
+  HelpCircle,
+  ShoppingBag,
 } from 'lucide-react';
 import {
   formatINR,
@@ -37,6 +38,9 @@ export default function ProductDetailClient({ slug }: ProductDetailClientProps) 
 
   const IconComponent = product.icon;
 
+  // Active tab state: 'overview' | 'features' | 'deliverables' | 'faq'
+  const [activeTab, setActiveTab] = useState<'overview' | 'features' | 'deliverables' | 'faq'>('overview');
+
   // License state: 'single' | 'multi'
   const [selectedLicense, setSelectedLicense] = useState<'single' | 'multi'>('single');
 
@@ -52,7 +56,7 @@ export default function ProductDetailClient({ slug }: ProductDetailClientProps) 
   const [buyerCompany, setBuyerCompany] = useState('');
   const [buyerNotes, setBuyerNotes] = useState('');
 
-  // Add-on pricing (sample placeholders)
+  // Add-on pricing
   const DEPLOYMENT_PRICE = 4999;
   const SUPPORT_PRICE = 6999;
 
@@ -122,12 +126,20 @@ Please confirm deliverable verification and commercial licensing documents.`;
     return `mailto:contact@kiaantechnology.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
+  const scrollToTab = (tab: 'overview' | 'features' | 'deliverables' | 'faq') => {
+    setActiveTab(tab);
+    const element = document.getElementById(`tab-${tab}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div
-      className="min-h-screen font-sans selection:bg-[#9CEE69] selection:text-black"
+      className="min-h-screen font-sans selection:bg-[#9CEE69] selection:text-black pt-[70px]"
       style={{ backgroundColor: '#121316', color: '#F8FAFC' }}
     >
-      {/* ─── Breadcrumb ─── */}
+      {/* ─── 1. Breadcrumb ─── */}
       <nav aria-label="Breadcrumb" className="border-b" style={{ borderColor: '#2D323E' }}>
         <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] py-3.5">
           <ol className="flex items-center flex-wrap gap-2 text-xs" style={{ color: '#94A3B8' }}>
@@ -154,148 +166,238 @@ Please confirm deliverable verification and commercial licensing documents.`;
         </div>
       </nav>
 
-      {/* ─── Main Two-Column Container ─── */}
-      <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] py-8 lg:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* ═══════════════════════════════════════════════
-              LEFT COLUMN: 65% (8 COLS ON LG)
-              Technical Breakdown & Deliverables Showcase
-             ═══════════════════════════════════════════════ */}
-          <div className="lg:col-span-8 flex flex-col gap-8">
-            {/* 1. Header & Title Block */}
+      {/* ─── 2. Codester-Style Product Header (Screenshot 1) ─── */}
+      <section className="border-b" style={{ borderColor: '#2D323E', backgroundColor: '#16181D' }}>
+        <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] py-6 sm:py-8">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+            {/* Product Icon / Logo Box */}
             <div
-              className="rounded-2xl p-6 sm:p-8"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center shrink-0 border"
               style={{
-                backgroundColor: '#1C1F26',
-                border: '1px solid #2D323E',
+                background: `linear-gradient(135deg, ${product.colorFrom}25, ${product.colorTo}25)`,
+                borderColor: `${product.colorFrom}50`,
+                boxShadow: `0 8px 24px ${product.glow}`,
               }}
             >
-              <div className="flex flex-wrap items-center gap-3 mb-4">
-                {/* Category Badge */}
-                <span
-                  className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md"
-                  style={{
-                    backgroundColor: 'rgba(156,238,105,0.1)',
-                    color: '#9CEE69',
-                    border: '1px solid rgba(156,238,105,0.25)',
-                  }}
-                >
-                  {product.category}
-                </span>
+              <IconComponent size={34} style={{ color: product.colorFrom }} />
+            </div>
+
+            {/* Title, Headline & Ratings/Status Bar */}
+            <div className="flex-1 min-w-0">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight mb-1.5" style={{ color: '#F8FAFC' }}>
+                {product.name}
+              </h1>
+              <p className="text-xs sm:text-sm leading-relaxed mb-3 max-w-3xl" style={{ color: '#94A3B8' }}>
+                {product.headline}
+              </p>
+
+              {/* Meta row: Stars, Review Count, Verified Status */}
+              <div className="flex flex-wrap items-center gap-3 text-xs">
+                {/* 5 Stars */}
+                <div className="flex items-center gap-1.5">
+                  <div className="flex items-center">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star key={star} size={13} className="text-[#475569] stroke-[1.5]" />
+                    ))}
+                  </div>
+                  <span className="text-[11px]" style={{ color: '#94A3B8' }}>
+                    0 reviews
+                  </span>
+                </div>
+
+                <span style={{ color: '#2D323E' }}>•</span>
+
+                {/* Recently Updated / Verified Architecture Badge */}
+                <div className="inline-flex items-center gap-1.5 text-[11px] font-medium" style={{ color: '#9CEE69' }}>
+                  <CheckCircle2 size={13} />
+                  <span>Verified Architecture</span>
+                </div>
+
+                <span style={{ color: '#2D323E' }}>•</span>
 
                 {/* Readiness Badge */}
                 <span
-                  className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md"
+                  className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
                   style={{
-                    backgroundColor:
-                      product.readiness === 'full-stack'
-                        ? 'rgba(156,238,105,0.12)'
-                        : 'rgba(148,163,184,0.12)',
+                    backgroundColor: product.readiness === 'full-stack' ? 'rgba(156,238,105,0.12)' : 'rgba(148,163,184,0.12)',
                     color: product.readiness === 'full-stack' ? '#9CEE69' : '#94A3B8',
                     border: `1px solid ${product.readiness === 'full-stack' ? 'rgba(156,238,105,0.25)' : 'rgba(148,163,184,0.2)'}`,
                   }}
                 >
-                  {product.readiness === 'full-stack' ? (
-                    <>
-                      <Package size={11} /> Full-Stack Source Code
-                    </>
-                  ) : (
-                    <>
-                      <Monitor size={11} /> Frontend Application
-                    </>
-                  )}
+                  {product.readiness === 'full-stack' ? <><Package size={10} /> Full-Stack</> : <><Monitor size={10} /> Frontend</>}
                 </span>
-              </div>
-
-              {/* Title & Headline */}
-              <div className="flex items-start gap-4 mb-4">
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border"
-                  style={{
-                    background: `linear-gradient(135deg, ${product.colorFrom}25, ${product.colorTo}25)`,
-                    borderColor: `${product.colorFrom}45`,
-                  }}
-                >
-                  <IconComponent size={28} style={{ color: product.colorFrom }} />
-                </div>
-                <div>
-                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-display uppercase tracking-tight leading-snug mb-1">
-                    {product.name}
-                  </h1>
-                  <p className="text-sm leading-relaxed" style={{ color: '#94A3B8' }}>
-                    {product.headline}
-                  </p>
-                </div>
-              </div>
-
-              {/* Tech Stack Pills */}
-              <div className="flex flex-wrap items-center gap-2 pt-2 border-t" style={{ borderColor: '#2D323E' }}>
-                <span className="text-[11px] font-bold uppercase tracking-wider mr-1" style={{ color: '#64748B' }}>
-                  Technologies:
-                </span>
-                {product.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-[11px] font-medium px-2.5 py-1 rounded-lg"
-                    style={{
-                      backgroundColor: '#222630',
-                      border: '1px solid #2D323E',
-                      color: '#F8FAFC',
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* 2. Live Interactive Sandbox / Demo Banner */}
+        {/* ─── Navigation Tabs Bar (Screenshot 1: Overview, Features, Deliverables, Support/FAQ) ─── */}
+        <div className="border-t" style={{ borderColor: '#2D323E' }}>
+          <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] flex items-center gap-2 sm:gap-6 overflow-x-auto no-scrollbar">
+            {[
+              { id: 'overview' as const, label: 'Overview' },
+              { id: 'features' as const, label: 'Features & Modules' },
+              { id: 'deliverables' as const, label: 'Included Files' },
+              { id: 'faq' as const, label: 'Support & FAQ' },
+            ].map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => scrollToTab(tab.id)}
+                  className={`py-3.5 px-1 sm:px-2 text-xs sm:text-sm font-semibold border-b-2 transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                    isActive
+                      ? 'border-[#9CEE69] text-[#9CEE69]'
+                      : 'border-transparent text-[#94A3B8] hover:text-[#F8FAFC]'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 3. Main Product Layout (Two Columns) ─── */}
+      <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* ═══════════════════════════════════════════════
+              LEFT COLUMN: 65% (8 COLS ON LG)
+             ═══════════════════════════════════════════════ */}
+          <div className="lg:col-span-8 flex flex-col gap-8">
+            {/* 1. Large Product Poster / Preview Banner (Screenshot 1) */}
             <div
-              className="rounded-2xl p-6 sm:p-8 relative overflow-hidden"
+              id="tab-overview"
+              className="rounded-2xl overflow-hidden border relative"
               style={{
                 backgroundColor: '#1C1F26',
-                border: '1px solid #2D323E',
+                borderColor: '#2D323E',
               }}
             >
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-wider" style={{ color: '#F8FAFC' }}>
-                      Live Demo Sandbox Available
-                    </span>
-                  </div>
-                  <p className="text-xs max-w-lg leading-relaxed" style={{ color: '#94A3B8' }}>
-                    Experience the complete working interface, operational flows, and dashboard capabilities in our live interactive sandbox.
-                  </p>
-                </div>
-
-                <Link
-                  href={product.demoUrl || '/demo/'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-95 shrink-0"
+              {/* Aspect Ratio 16:9 Banner Mockup */}
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#16181D]">
+                {/* Glow & Atmospheric Gradient */}
+                <div
+                  className="absolute inset-0"
                   style={{
-                    backgroundColor: '#222630',
-                    border: '1px solid #9CEE69',
-                    color: '#9CEE69',
+                    background: `radial-gradient(ellipse at 60% 40%, ${product.colorFrom}30 0%, transparent 70%), linear-gradient(135deg, ${product.colorFrom}15, ${product.colorTo}10)`,
                   }}
-                >
-                  <span>Launch Live Demo in New Window</span>
-                  <ExternalLink size={14} />
-                </Link>
+                />
+
+                {/* Subtle Grid Overlay */}
+                <div
+                  className="absolute inset-0 opacity-[0.06]"
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
+                    backgroundSize: '24px 24px',
+                  }}
+                />
+
+                {/* Centered Software Frame Mockup */}
+                <div className="absolute inset-x-6 top-8 bottom-6 flex flex-col items-center justify-center">
+                  <div
+                    className="w-full max-w-[420px] rounded-2xl border p-5 sm:p-6 flex flex-col items-center justify-center backdrop-blur-md"
+                    style={{
+                      backgroundColor: 'rgba(28, 31, 38, 0.85)',
+                      borderColor: 'rgba(255, 255, 255, 0.1)',
+                      boxShadow: `0 16px 50px ${product.glow}`,
+                    }}
+                  >
+                    {/* Window Controls */}
+                    <div className="w-full flex items-center justify-between pb-3 mb-3 border-b border-white/5">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
+                      </div>
+                      <span className="text-[9px] uppercase tracking-wider text-slate-400 font-mono">
+                        {product.slug}.kiaan
+                      </span>
+                    </div>
+
+                    {/* App Icon */}
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center border my-2"
+                      style={{
+                        background: `linear-gradient(135deg, ${product.colorFrom}35, ${product.colorTo}35)`,
+                        borderColor: `${product.colorFrom}60`,
+                      }}
+                    >
+                      <IconComponent size={32} style={{ color: product.colorFrom }} />
+                    </div>
+
+                    <h2 className="text-sm sm:text-base font-bold text-center mt-2 line-clamp-1" style={{ color: '#F8FAFC' }}>
+                      {product.name}
+                    </h2>
+                    <span className="text-xs text-center text-slate-400 mt-0.5 line-clamp-1">
+                      {product.headline}
+                    </span>
+
+                    {/* Tech chips inside banner */}
+                    <div className="flex flex-wrap items-center justify-center gap-1.5 mt-3">
+                      {product.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-[9px] font-semibold px-2 py-0.5 rounded"
+                          style={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                            color: '#94A3B8',
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
+              {/* Action Bar Directly Below Poster (Screenshot 1: Live Demo, Handover Request) */}
               <div
-                className="mt-4 pt-3 flex items-center gap-2 text-[11px] border-t"
-                style={{ borderColor: 'rgba(255,255,255,0.05)', color: '#64748B' }}
+                className="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 border-t"
+                style={{ borderColor: '#2D323E', backgroundColor: '#16181D' }}
               >
-                <Info size={13} className="shrink-0" />
-                <span>Sandbox environment features test data. No live financial or personal records are accessed.</span>
+                <div className="flex flex-wrap items-center gap-2.5">
+                  {/* Live Demo Action Button */}
+                  <a
+                    href={product.demoUrl || '/demo/'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-95 cursor-pointer shadow-md"
+                    style={{
+                      backgroundColor: '#2563eb',
+                      color: '#FFFFFF',
+                    }}
+                  >
+                    <ExternalLink size={13} />
+                    <span>Live Demo Sandbox</span>
+                  </a>
+
+                  {/* Request Code Action */}
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5 active:scale-95 border cursor-pointer"
+                    style={{
+                      borderColor: '#2D323E',
+                      color: '#F8FAFC',
+                      backgroundColor: '#222630',
+                    }}
+                  >
+                    <ShoppingBag size={13} style={{ color: '#9CEE69' }} />
+                    <span>Inquire / Request Handover</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs" style={{ color: '#94A3B8' }}>
+                  <ShieldCheck size={15} style={{ color: '#9CEE69' }} />
+                  <span>Verified Production Codebase</span>
+                </div>
               </div>
             </div>
 
-            {/* 3. Deep Feature Breakdown */}
+            {/* 2. Overview & Detailed Description (Screenshot 2) */}
             <div
               className="rounded-2xl p-6 sm:p-8"
               style={{
@@ -303,22 +405,42 @@ Please confirm deliverable verification and commercial licensing documents.`;
                 border: '1px solid #2D323E',
               }}
             >
-              <div className="flex items-center gap-2 mb-6">
+              <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide mb-3" style={{ color: '#F8FAFC' }}>
+                Platform Overview
+              </h2>
+              <p className="text-xs sm:text-sm leading-relaxed mb-4" style={{ color: '#94A3B8' }}>
+                {product.description}
+              </p>
+              <p className="text-xs sm:text-sm leading-relaxed" style={{ color: '#94A3B8' }}>
+                Engineered with high standards of maintainability, modular separation of concerns, and clean schema boundaries.
+                Delivered as a turnkey source code package with database migrations, API documentation, and environment configuration templates ready for immediate deployment.
+              </p>
+            </div>
+
+            {/* 3. Core Modules & Capabilities (Screenshot 3) */}
+            <div
+              id="tab-features"
+              className="rounded-2xl p-6 sm:p-8"
+              style={{
+                backgroundColor: '#1C1F26',
+                border: '1px solid #2D323E',
+              }}
+            >
+              <div className="flex items-center gap-2 mb-4">
                 <Layers size={18} style={{ color: '#9CEE69' }} />
-                <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide">
-                  Core Modules & Capabilities
+                <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide" style={{ color: '#F8FAFC' }}>
+                  Core Modules & Feature Breakdown
                 </h2>
               </div>
-
               <p className="text-xs sm:text-sm leading-relaxed mb-6" style={{ color: '#94A3B8' }}>
-                {product.description}
+                Comprehensive operational capabilities designed for end-to-end multi-tenant enterprise requirements:
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {product.features.map((feature, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-3 p-3.5 rounded-xl transition-colors"
+                    className="flex items-start gap-3 p-3.5 rounded-xl"
                     style={{
                       backgroundColor: '#222630',
                       border: '1px solid #2D323E',
@@ -333,8 +455,9 @@ Please confirm deliverable verification and commercial licensing documents.`;
               </div>
             </div>
 
-            {/* 4. Verified Deliverables & File Manifest (VS Code Style) */}
+            {/* 4. Included Deliverables Manifest (VS Code Tree) */}
             <div
+              id="tab-deliverables"
               className="rounded-2xl p-6 sm:p-8"
               style={{
                 backgroundColor: '#1C1F26',
@@ -344,8 +467,8 @@ Please confirm deliverable verification and commercial licensing documents.`;
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <FileCode2 size={18} style={{ color: '#9CEE69' }} />
-                  <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide">
-                    Included Deliverables Manifest
+                  <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide" style={{ color: '#F8FAFC' }}>
+                    Included Files & Package Manifest
                   </h2>
                 </div>
                 <span
@@ -360,7 +483,7 @@ Please confirm deliverable verification and commercial licensing documents.`;
               </div>
 
               <p className="text-xs leading-relaxed mb-4" style={{ color: '#94A3B8' }}>
-                Only verified software files and documented schemas are bundled into your private handover archive:
+                The following repository artifacts and verified schemas are included in the distribution archive:
               </p>
 
               <div
@@ -401,8 +524,8 @@ Please confirm deliverable verification and commercial licensing documents.`;
             >
               <div className="flex items-center gap-2 mb-4">
                 <Server size={18} style={{ color: '#9CEE69' }} />
-                <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide">
-                  System Requirements & Hosting
+                <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide" style={{ color: '#F8FAFC' }}>
+                  System Requirements & Hosting Specifications
                 </h2>
               </div>
 
@@ -426,14 +549,63 @@ Please confirm deliverable verification and commercial licensing documents.`;
                 ))}
               </div>
             </div>
+
+            {/* 6. FAQ & Support Section (Tab FAQ) */}
+            <div
+              id="tab-faq"
+              className="rounded-2xl p-6 sm:p-8"
+              style={{
+                backgroundColor: '#1C1F26',
+                border: '1px solid #2D323E',
+              }}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <HelpCircle size={18} style={{ color: '#9CEE69' }} />
+                <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide" style={{ color: '#F8FAFC' }}>
+                  Frequently Asked Questions & Support
+                </h2>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  {
+                    q: 'How is the source code delivered?',
+                    a: 'Upon purchase confirmation, your package is provided via a secure private Git repository transfer or direct encrypted archive download containing full, unminified source code.',
+                  },
+                  {
+                    q: 'Can I customize and rebrand this software for my clients?',
+                    a: 'Yes. Both Single and Multi-deployment licenses grant 100% white-label rights, allowing full rebranding, customization, and client deployments.',
+                  },
+                  {
+                    q: 'What level of developer support is available?',
+                    a: 'Direct engineering support is available directly from Kiaan Technology core developers for setup guidance, environment configuration, and architectural orientation.',
+                  },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-xl"
+                    style={{
+                      backgroundColor: '#222630',
+                      border: '1px solid #2D323E',
+                    }}
+                  >
+                    <h3 className="text-xs sm:text-sm font-bold mb-1.5" style={{ color: '#F8FAFC' }}>
+                      {item.q}
+                    </h3>
+                    <p className="text-xs leading-relaxed" style={{ color: '#94A3B8' }}>
+                      {item.a}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* ═══════════════════════════════════════════════
-              RIGHT COLUMN: 35% (4 COLS ON LG)
-              Sticky License Selector & Order Box
+              RIGHT SIDEBAR: 35% (4 COLS ON LG) (Codester Screenshots 1 & 2)
              ═══════════════════════════════════════════════ */}
           <div className="lg:col-span-4 lg:sticky lg:top-24 flex flex-col gap-6">
-            {/* 1. Main Purchase Box */}
+            {/* Panel 1: Commercial Licensing & Purchase Box (Screenshot 1) */}
             <div
               className="rounded-2xl p-6 relative overflow-hidden"
               style={{
@@ -450,7 +622,7 @@ Please confirm deliverable verification and commercial licensing documents.`;
                 }}
               />
 
-              {/* Title & Sample Notice */}
+              {/* Title, Price & Sample Badge */}
               <div className="mb-5">
                 <span className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: '#94A3B8' }}>
                   Commercial Licensing
@@ -471,7 +643,7 @@ Please confirm deliverable verification and commercial licensing documents.`;
                   </span>
                 </div>
                 <span className="text-[10px] block mt-1" style={{ color: '#64748B' }}>
-                  *One-time license fee in INR. No recurring royalites.
+                  *One-time license fee in INR. No recurring royalties.
                 </span>
               </div>
 
@@ -544,15 +716,34 @@ Please confirm deliverable verification and commercial licensing documents.`;
                 </label>
               </div>
 
+              {/* Codester-Style Value Props Checklist (Screenshot 1) */}
+              <div className="space-y-2 mb-5 pt-3 border-t text-xs" style={{ borderColor: '#2D323E' }}>
+                <div className="flex items-center gap-2">
+                  <Check size={14} className="shrink-0" style={{ color: '#9CEE69' }} />
+                  <span style={{ color: '#F8FAFC' }}>Direct Engineering Handover</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check size={14} className="shrink-0" style={{ color: '#9CEE69' }} />
+                  <span style={{ color: '#F8FAFC' }}>Complete Unminified Source Code</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check size={14} className="shrink-0" style={{ color: '#9CEE69' }} />
+                  <span style={{ color: '#F8FAFC' }}>Commercial License Agreement</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check size={14} className="shrink-0" style={{ color: '#9CEE69' }} />
+                  <span style={{ color: '#F8FAFC' }}>Verified Architectural Quality</span>
+                </div>
+              </div>
+
               {/* Optional Service Add-ons */}
-              <div className="space-y-3 mb-6 pt-4 border-t" style={{ borderColor: '#2D323E' }}>
+              <div className="space-y-2.5 mb-5 pt-3 border-t" style={{ borderColor: '#2D323E' }}>
                 <span className="text-[11px] font-bold uppercase tracking-wider block" style={{ color: '#F8FAFC' }}>
                   Optional Services:
                 </span>
 
-                {/* Add-on 1: Deployment */}
                 <label
-                  className="flex items-start gap-3 p-3 rounded-xl cursor-pointer transition-colors border"
+                  className="flex items-start gap-2.5 p-2.5 rounded-xl cursor-pointer transition-colors border"
                   style={{
                     backgroundColor: includeDeployment ? '#222630' : '#16181D',
                     borderColor: includeDeployment ? 'rgba(156,238,105,0.5)' : '#2D323E',
@@ -573,15 +764,11 @@ Please confirm deliverable verification and commercial licensing documents.`;
                         +{formatINR(DEPLOYMENT_PRICE)}
                       </span>
                     </div>
-                    <p className="text-[10px]" style={{ color: '#64748B' }}>
-                      Complete installation on your AWS/VPS/cPanel server.
-                    </p>
                   </div>
                 </label>
 
-                {/* Add-on 2: Support */}
                 <label
-                  className="flex items-start gap-3 p-3 rounded-xl cursor-pointer transition-colors border"
+                  className="flex items-start gap-2.5 p-2.5 rounded-xl cursor-pointer transition-colors border"
                   style={{
                     backgroundColor: includeSupport ? '#222630' : '#16181D',
                     borderColor: includeSupport ? 'rgba(156,238,105,0.5)' : '#2D323E',
@@ -602,9 +789,6 @@ Please confirm deliverable verification and commercial licensing documents.`;
                         +{formatINR(SUPPORT_PRICE)}
                       </span>
                     </div>
-                    <p className="text-[10px]" style={{ color: '#64748B' }}>
-                      Senior developer advisory & priority bug fixing.
-                    </p>
                   </div>
                 </label>
               </div>
@@ -629,7 +813,7 @@ Please confirm deliverable verification and commercial licensing documents.`;
                 </div>
               </div>
 
-              {/* Primary Action Button */}
+              {/* Primary Action Button (Screenshot 1: Big Buy / Handover Request Button) */}
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="w-full py-3.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg cursor-pointer"
@@ -648,7 +832,7 @@ Please confirm deliverable verification and commercial licensing documents.`;
               </p>
             </div>
 
-            {/* 2. Item Specifications Table */}
+            {/* Panel 2: Codester-Style Information Panel (Screenshot 2) */}
             <div
               className="rounded-2xl p-5"
               style={{
@@ -656,54 +840,90 @@ Please confirm deliverable verification and commercial licensing documents.`;
                 border: '1px solid #2D323E',
               }}
             >
-              <h3 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: '#F8FAFC' }}>
-                Handover Specifications
+              <h3 className="text-xs font-bold uppercase tracking-wider mb-3.5" style={{ color: '#F8FAFC' }}>
+                Product Information
               </h3>
               <dl className="space-y-2.5 text-xs">
                 <div className="flex justify-between pb-2 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                  <dt style={{ color: '#64748B' }}>Version</dt>
-                  <dd className="font-semibold" style={{ color: '#F8FAFC' }}>v2.4.0 (Latest Release)</dd>
+                  <dt style={{ color: '#64748B' }}>Category</dt>
+                  <dd className="font-semibold" style={{ color: '#F8FAFC' }}>{product.category}</dd>
                 </div>
                 <div className="flex justify-between pb-2 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                  <dt style={{ color: '#64748B' }}>Documentation</dt>
-                  <dd className="font-semibold" style={{ color: '#F8FAFC' }}>Included (PDF & Setup)</dd>
+                  <dt style={{ color: '#64748B' }}>Architecture</dt>
+                  <dd className="font-semibold" style={{ color: '#9CEE69' }}>
+                    {product.readiness === 'full-stack' ? 'Full-Stack Source Code' : 'Frontend Application'}
+                  </dd>
                 </div>
                 <div className="flex justify-between pb-2 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                  <dt style={{ color: '#64748B' }}>License Grant</dt>
-                  <dd className="font-semibold" style={{ color: '#9CEE69' }}>Formal Commercial</dd>
+                  <dt style={{ color: '#64748B' }}>Tech Stack</dt>
+                  <dd className="font-semibold text-right truncate max-w-[180px]" style={{ color: '#F8FAFC' }}>
+                    {product.techStack.join(', ')}
+                  </dd>
                 </div>
-                <div className="flex justify-between">
-                  <dt style={{ color: '#64748B' }}>Delivery Method</dt>
-                  <dd className="font-semibold" style={{ color: '#F8FAFC' }}>Direct Engineering Handover</dd>
+                <div className="flex justify-between pb-2 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+                  <dt style={{ color: '#64748B' }}>Files Included</dt>
+                  <dd className="font-semibold" style={{ color: '#F8FAFC' }}>
+                    {product.includedFiles.length} Package Modules
+                  </dd>
+                </div>
+                <div className="pt-1">
+                  <dt className="mb-2" style={{ color: '#64748B' }}>Tags</dt>
+                  <dd className="flex flex-wrap gap-1">
+                    {product.techStack.concat([product.category]).map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[9px] font-medium px-2 py-0.5 rounded"
+                        style={{
+                          backgroundColor: '#222630',
+                          border: '1px solid #2D323E',
+                          color: '#94A3B8',
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </dd>
                 </div>
               </dl>
             </div>
 
-            {/* 3. Verified Engineering Trust Seals */}
+            {/* Panel 3: Author / Engineering Desk (Screenshot 2 bottom) */}
             <div
-              className="rounded-2xl p-5 space-y-3"
+              className="rounded-2xl p-5"
               style={{
                 backgroundColor: '#1C1F26',
                 border: '1px solid #2D323E',
               }}
             >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(156,238,105,0.1)', color: '#9CEE69' }}>
-                  <ShieldCheck size={16} />
+              <div className="flex items-center gap-3 mb-3">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xs shrink-0"
+                  style={{
+                    backgroundColor: 'rgba(156,238,105,0.15)',
+                    color: '#9CEE69',
+                    border: '1px solid rgba(156,238,105,0.3)',
+                  }}
+                >
+                  KT
                 </div>
-                <div className="text-xs">
-                  <span className="font-bold block" style={{ color: '#F8FAFC' }}>Verified Kiaan Architecture</span>
-                  <span className="text-[10px]" style={{ color: '#64748B' }}>Directly architected & maintained</span>
+                <div>
+                  <h4 className="text-xs font-bold" style={{ color: '#F8FAFC' }}>
+                    Kiaan Technology
+                  </h4>
+                  <span className="text-[10px]" style={{ color: '#64748B' }}>
+                    Enterprise Software & Platform Engineering
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(156,238,105,0.1)', color: '#9CEE69' }}>
-                  <Headphones size={16} />
+              <div className="space-y-2 pt-2 border-t text-xs" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck size={14} style={{ color: '#9CEE69' }} />
+                  <span style={{ color: '#94A3B8' }}>Verified Engineering Guarantee</span>
                 </div>
-                <div className="text-xs">
-                  <span className="font-bold block" style={{ color: '#F8FAFC' }}>Direct Engineer Support</span>
-                  <span className="text-[10px]" style={{ color: '#64748B' }}>Assistance from core developers</span>
+                <div className="flex items-center gap-2">
+                  <Headphones size={14} style={{ color: '#9CEE69' }} />
+                  <span style={{ color: '#94A3B8' }}>Direct Core Developer Handover</span>
                 </div>
               </div>
             </div>
@@ -711,9 +931,7 @@ Please confirm deliverable verification and commercial licensing documents.`;
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════
-          ASSISTED PURCHASE MODAL
-         ═══════════════════════════════════════════════ */}
+      {/* ─── 4. Assisted Purchase Modal (Preserved Functionality) ─── */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
           <div

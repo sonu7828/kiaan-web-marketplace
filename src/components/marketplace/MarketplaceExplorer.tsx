@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, ExternalLink, ArrowRight, Package, Monitor, X, ChevronDown, Check } from 'lucide-react';
+import { Search, ExternalLink, ArrowRight, Package, Monitor, X, ChevronDown, Check, ShoppingCart, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   MARKETPLACE_PRODUCTS,
@@ -12,15 +12,25 @@ import {
 } from '@/data/marketplace-software-data';
 
 // ═══════════════════════════════════════════════
-// MARKETPLACE PRODUCT CARD
+// MARKETPLACE PRODUCT CARD (CodeCanyon-Style)
 // ═══════════════════════════════════════════════
 
-function MarketplaceCard({ product }: { product: MarketplaceProduct }) {
+interface MarketplaceCardProps {
+  product: MarketplaceProduct;
+  isInCart: boolean;
+  onToggleCart: () => void;
+}
+
+function MarketplaceCard({
+  product,
+  isInCart,
+  onToggleCart,
+}: MarketplaceCardProps) {
   const IconComponent = product.icon;
+  const previewUrl = product.demoUrl || '/demo/';
 
   return (
-    <Link
-      href={`/marketplace/${product.slug}/`}
+    <div
       className="group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
       style={{
         backgroundColor: '#1C1F26',
@@ -35,40 +45,81 @@ function MarketplaceCard({ product }: { product: MarketplaceProduct }) {
         }}
       />
 
-      {/* Gradient Header Strip */}
-      <div
-        className="relative h-28 sm:h-32 flex items-center justify-center overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, ${product.colorFrom}15, ${product.colorTo}15)`,
-        }}
-      >
-        {/* Subtle grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-          }}
-        />
-
-        {/* Icon */}
-        <div
-          className="relative w-12 h-12 rounded-xl flex items-center justify-center border transition-transform duration-300 group-hover:scale-110"
-          style={{
-            background: `linear-gradient(135deg, ${product.colorFrom}25, ${product.colorTo}25)`,
-            borderColor: `${product.colorFrom}40`,
-          }}
+      {/* ─── 1. Product Thumbnail / Poster ─── */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-2xl bg-[#16181D]">
+        {/* Link to detail page covering the poster */}
+        <Link
+          href={`/marketplace/${product.slug}/`}
+          className="absolute inset-0 z-0 block cursor-pointer"
+          aria-label={`View details for ${product.name}`}
         >
-          <IconComponent size={22} style={{ color: product.colorFrom }} />
-        </div>
+          {/* Atmospheric Background & Glow */}
+          <div
+            className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
+            style={{
+              background: `radial-gradient(ellipse at 50% 30%, ${product.colorFrom}25 0%, transparent 70%), linear-gradient(135deg, ${product.colorFrom}15, ${product.colorTo}10)`,
+            }}
+          />
 
-        {/* Readiness Badge */}
-        <div className="absolute top-2.5 right-2.5">
+          {/* Subtle Architectural Grid Pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.05]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
+              backgroundSize: '20px 20px',
+            }}
+          />
+
+          {/* Software Window / Interface Mockup Graphic */}
+          <div className="absolute inset-x-3 sm:inset-x-4 top-4 sm:top-5 bottom-3 sm:bottom-4 flex flex-col items-center justify-center">
+            {/* Mini Window Frame */}
+            <div
+              className="w-full max-w-[220px] rounded-xl border p-2.5 sm:p-3 flex flex-col items-center justify-center backdrop-blur-md transition-all duration-300 group-hover:border-white/20 group-hover:shadow-lg"
+              style={{
+                backgroundColor: 'rgba(28, 31, 38, 0.75)',
+                borderColor: 'rgba(255, 255, 255, 0.08)',
+                boxShadow: `0 8px 30px ${product.glow}`,
+              }}
+            >
+              {/* Window controls bar */}
+              <div className="w-full flex items-center justify-between pb-1.5 sm:pb-2 mb-1.5 sm:mb-2 border-b border-white/5">
+                <div className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500/70" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500/70" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/70" />
+                </div>
+                <span className="text-[7.5px] uppercase tracking-wider text-slate-400 font-mono font-medium truncate max-w-[120px]">
+                  {product.slug}.kiaan
+                </span>
+              </div>
+
+              {/* Centerpiece Icon & Glow */}
+              <div
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center border my-0.5 sm:my-1 transition-transform duration-300 group-hover:scale-110"
+                style={{
+                  background: `linear-gradient(135deg, ${product.colorFrom}30, ${product.colorTo}30)`,
+                  borderColor: `${product.colorFrom}50`,
+                }}
+              >
+                <IconComponent size={22} style={{ color: product.colorFrom }} />
+              </div>
+
+              {/* Headline badge */}
+              <span className="text-[8.5px] sm:text-[9px] font-semibold text-slate-300 truncate max-w-[170px] text-center mt-1">
+                {product.category}
+              </span>
+            </div>
+          </div>
+        </Link>
+
+        {/* Top-Left: Readiness Badge */}
+        <div className="absolute top-2.5 left-2.5 z-10 pointer-events-none">
           <span
             className="inline-flex items-center gap-1 text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded backdrop-blur-md"
             style={{
-              backgroundColor: product.readiness === 'full-stack' ? 'rgba(156,238,105,0.15)' : 'rgba(148,163,184,0.15)',
+              backgroundColor:
+                product.readiness === 'full-stack' ? 'rgba(156,238,105,0.15)' : 'rgba(148,163,184,0.15)',
               color: product.readiness === 'full-stack' ? '#9CEE69' : '#94A3B8',
               border: `1px solid ${product.readiness === 'full-stack' ? 'rgba(156,238,105,0.3)' : 'rgba(148,163,184,0.2)'}`,
             }}
@@ -82,41 +133,38 @@ function MarketplaceCard({ product }: { product: MarketplaceProduct }) {
         </div>
       </div>
 
-      {/* Card Body */}
+      {/* ─── 2. Card Body ─── */}
       <div className="flex flex-col flex-1 p-3.5 sm:p-4">
-        {/* Category Tag */}
-        <span
-          className="inline-flex self-start items-center text-[8.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded mb-2"
-          style={{
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: '#64748B',
-            border: '1px solid #2D323E',
-          }}
+        {/* Title (Link to Detail Page) */}
+        <Link
+          href={`/marketplace/${product.slug}/`}
+          className="font-bold text-xs sm:text-[13px] leading-snug tracking-tight mb-1 text-[#F8FAFC] hover:text-[#9CEE69] transition-colors duration-200 line-clamp-1 block"
+          title={product.name}
         >
-          {product.category}
-        </span>
+          {product.name}
+        </Link>
 
-        {/* Title */}
-        <h3
-          className="font-bold text-xs sm:text-[13px] leading-snug tracking-tight mb-1.5 transition-colors duration-300 line-clamp-2 min-h-[34px]"
-          style={{ color: '#F8FAFC' }}
+        {/* Subline: Author & Category (CodeCanyon reference: "by ... in ...") */}
+        <div className="text-[10px] sm:text-[10.5px] mb-2 truncate" style={{ color: '#94A3B8' }}>
+          by <span style={{ color: '#F8FAFC' }} className="font-medium">Kiaan Technology</span> in{' '}
+          <span style={{ color: '#94A3B8' }}>{product.category}</span>
+        </div>
+
+        {/* Description (Link to Detail Page) */}
+        <Link
+          href={`/marketplace/${product.slug}/`}
+          className="text-[11px] leading-relaxed mb-3 line-clamp-2 transition-colors duration-200 hover:text-slate-300 block min-h-[32px]"
+          style={{ color: '#94A3B8' }}
         >
-          <span className="group-hover:text-[#9CEE69] transition-colors duration-300">
-            {product.name}
-          </span>
-        </h3>
-
-        {/* Headline */}
-        <p className="text-[11px] leading-relaxed mb-3 line-clamp-2" style={{ color: '#94A3B8' }}>
           {product.headline}
-        </p>
+        </Link>
 
         {/* Tech Stack Chips */}
         <div className="flex flex-wrap gap-1 mb-3">
-          {product.techStack.slice(0, 4).map((tech) => (
+          {product.techStack.slice(0, 3).map((tech) => (
             <span
               key={tech}
-              className="text-[9px] font-semibold px-1.5 py-0.5 rounded"
+              className="text-[8.5px] font-semibold px-1.5 py-0.5 rounded"
               style={{
                 backgroundColor: 'rgba(255,255,255,0.04)',
                 color: '#64748B',
@@ -128,60 +176,98 @@ function MarketplaceCard({ product }: { product: MarketplaceProduct }) {
           ))}
         </div>
 
-        {/* Spacer */}
+        {/* Spacer to push actions to bottom */}
         <div className="mt-auto" />
 
-        {/* Price Row */}
-        <div className="flex items-end justify-between mb-3 pt-2.5" style={{ borderTop: '1px solid #2D323E' }}>
-          <div>
-            <span className="text-[9px] uppercase tracking-wider font-medium block mb-0.5" style={{ color: '#64748B' }}>
-              Starting from
-            </span>
-            <span className="text-base sm:text-lg font-bold" style={{ color: '#9CEE69' }}>
-              {formatINR(product.pricing.singleLicense)}
-            </span>
-            {product.pricing.isSamplePrice && (
-              <span className="text-[8.5px] block mt-0.5 italic" style={{ color: '#64748B' }}>
-                Sample pricing
-              </span>
-            )}
-          </div>
-        </div>
+        {/* ─── 3. Bottom Meta & Actions Row (CodeCanyon Style) ─── */}
+        <div className="pt-3 border-t" style={{ borderColor: '#2D323E' }}>
+          <div className="flex items-end justify-between gap-2">
+            {/* Left: Price + Rating + Sales */}
+            <div className="flex flex-col min-w-0">
+              {/* Price */}
+              <div className="flex items-baseline gap-1">
+                <span className="text-base sm:text-lg font-bold tracking-tight" style={{ color: '#9CEE69' }}>
+                  {formatINR(product.pricing.singleLicense)}
+                </span>
+                {product.pricing.isSamplePrice && (
+                  <span className="text-[8.5px] italic" style={{ color: '#64748B' }}>
+                    Sample
+                  </span>
+                )}
+              </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-1.5">
-          {product.demoUrl && (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                window.open(product.demoUrl, '_blank');
-              }}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer"
-              style={{
-                color: '#94A3B8',
-                border: '1px solid #2D323E',
-                backgroundColor: 'transparent',
-              }}
-            >
-              <ExternalLink size={11} />
-              Preview
-            </button>
-          )}
-          <div
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer"
-            style={{
-              backgroundColor: '#9CEE69',
-              color: '#000000',
-              border: '1px solid #9CEE69',
-            }}
-          >
-            <ArrowRight size={11} />
-            Details
+              {/* Rating Stars (Rule 6 Empty State) */}
+              <div className="flex items-center gap-1 mt-0.5">
+                <div className="flex items-center">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      size={10}
+                      className="text-[#475569] stroke-[1.5]"
+                    />
+                  ))}
+                </div>
+                <span className="text-[9.5px]" style={{ color: '#64748B' }}>
+                  (0)
+                </span>
+              </div>
+
+              {/* Sales Count (Rule 6 Empty State) */}
+              <span className="text-[9.5px] mt-0.5 block" style={{ color: '#64748B' }}>
+                0 Sales
+              </span>
+            </div>
+
+            {/* Right: Actions (Cart & Live Preview) */}
+            <div className="flex items-center gap-1.5 shrink-0">
+              {/* Add to Cart Button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onToggleCart();
+                }}
+                title={isInCart ? 'Remove from cart' : 'Add to cart'}
+                aria-label={isInCart ? 'Remove from cart' : 'Add to cart'}
+                className="w-9 h-9 rounded-lg flex items-center justify-center border transition-all duration-200 cursor-pointer active:scale-95 shrink-0"
+                style={{
+                  backgroundColor: isInCart ? 'rgba(156,238,105,0.12)' : '#16181D',
+                  borderColor: isInCart ? '#9CEE69' : '#2D323E',
+                  color: isInCart ? '#9CEE69' : '#94A3B8',
+                }}
+              >
+                {isInCart ? <Check size={14} /> : <ShoppingCart size={14} />}
+              </button>
+
+              {/* Live Preview Button */}
+              <a
+                href={previewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="h-9 px-2.5 sm:px-3 rounded-lg flex items-center justify-center gap-1 text-[11px] font-semibold border transition-all duration-200 cursor-pointer shrink-0 hover:bg-white/[0.04] active:scale-95"
+                style={{
+                  borderColor: '#2D323E',
+                  color: '#F8FAFC',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#9CEE69';
+                  e.currentTarget.style.color = '#9CEE69';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#2D323E';
+                  e.currentTarget.style.color = '#F8FAFC';
+                }}
+              >
+                <span>Live Preview</span>
+                <ExternalLink size={10} />
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -196,6 +282,33 @@ export default function MarketplaceExplorer() {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Minimal frontend-only local state (no backend persistence)
+  const [cartIds, setCartIds] = useState<Set<string>>(new Set());
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const triggerToast = (msg: string) => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    setToastMessage(msg);
+    toastTimerRef.current = setTimeout(() => {
+      setToastMessage(null);
+    }, 2400);
+  };
+
+  const handleToggleCart = (product: MarketplaceProduct) => {
+    setCartIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(product.id)) {
+        next.delete(product.id);
+        triggerToast(`Removed "${product.name}" from cart`);
+      } else {
+        next.add(product.id);
+        triggerToast(`Added "${product.name}" to cart`);
+      }
+      return next;
+    });
+  };
 
   // Close category dropdown on click outside
   useEffect(() => {
@@ -436,7 +549,12 @@ export default function MarketplaceExplorer() {
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-4.5">
             {filteredProducts.map((product) => (
-              <MarketplaceCard key={product.id} product={product} />
+              <MarketplaceCard
+                key={product.id}
+                product={product}
+                isInCart={cartIds.has(product.id)}
+                onToggleCart={() => handleToggleCart(product)}
+              />
             ))}
           </div>
         ) : (
@@ -472,6 +590,28 @@ export default function MarketplaceExplorer() {
           </div>
         )}
       </div>
+
+      {/* Floating Toast Notification */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 16, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-xl shadow-2xl backdrop-blur-md border text-xs font-semibold max-w-sm pointer-events-none"
+            style={{
+              backgroundColor: 'rgba(28, 31, 38, 0.95)',
+              borderColor: 'rgba(156, 238, 105, 0.4)',
+              color: '#F8FAFC',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.8), 0 0 20px rgba(156,238,105,0.15)',
+            }}
+          >
+            <span className="w-2 h-2 rounded-full bg-[#9CEE69] shrink-0" />
+            <span className="truncate">{toastMessage}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
