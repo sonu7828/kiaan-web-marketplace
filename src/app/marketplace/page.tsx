@@ -49,7 +49,7 @@ export default function MarketplacePage() {
 
       {/* ─── 3. Verified Engineering Assurance Banner ─── */}
       <section className="relative z-10 py-12 border-t" style={{ borderColor: '#2D323E' }}>
-        <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
+        <div className="container mx-auto px-4 lg:px-8 max-w-[1280px]">
           <div
             className="rounded-2xl p-6 sm:p-8 lg:p-10"
             style={{
@@ -130,7 +130,7 @@ export default function MarketplacePage() {
 
       {/* ─── 4. Custom Enterprise Software CTA ─── */}
       <section className="relative z-10 py-16 sm:py-20">
-        <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
+        <div className="container mx-auto px-4 lg:px-8 max-w-[1280px]">
           <div
             className="relative rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden text-center"
             style={{

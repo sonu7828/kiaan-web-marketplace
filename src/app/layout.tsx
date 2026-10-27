@@ -9,6 +9,7 @@ import UTMTracker from "@/components/UTMTracker";
 import { CanonicalTag } from "@/components/seo/CanonicalTag";
 import Script from "next/script";
 import { RetargetingTracker } from "@/components/analytics/RetargetingTracker";
+import { CartProvider } from "@/context/CartContext";
 import "@fontsource/anton/latin-400.css";
 import "@fontsource/manrope/latin-300.css";
 import "@fontsource/manrope/latin-400.css";
@@ -359,16 +360,18 @@ export default function RootLayout({
                 />
 
                 <UTMTracker />
-                <div className="flex flex-col min-h-screen relative bg-black text-white">
-                    <Navbar />
-                    <main className="relative z-10 w-full">
-                        <Breadcrumbs />
-                        {children}
-                    </main>
-                    <Footer />
-                    <GlobalClientComponents />
-                    <AwardBanner />
-                </div>
+                <CartProvider>
+                    <div className="flex flex-col min-h-screen relative bg-black text-white">
+                        <Navbar />
+                        <main className="relative z-10 w-full pt-[64px]">
+                            <Breadcrumbs />
+                            {children}
+                        </main>
+                        <Footer />
+                        <GlobalClientComponents />
+                        <AwardBanner />
+                    </div>
+                </CartProvider>
                 <Script
                     id="tidio-chat"
                     src="https://code.tidio.co/qihkscecnmcvf2gnjrau6nahfxnp3ytj.js"

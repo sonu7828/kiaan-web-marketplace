@@ -21,12 +21,14 @@ import {
   Layers,
   HelpCircle,
   ShoppingBag,
+  ShoppingCart,
 } from 'lucide-react';
 import {
   formatINR,
   getProductBySlug,
   type MarketplaceProduct,
 } from '@/data/marketplace-software-data';
+import { useCart } from '@/context/CartContext';
 
 interface ProductDetailClientProps {
   slug: string;
@@ -47,6 +49,9 @@ export default function ProductDetailClient({ slug }: ProductDetailClientProps) 
   // Optional add-ons
   const [includeDeployment, setIncludeDeployment] = useState(false);
   const [includeSupport, setIncludeSupport] = useState(false);
+
+  // Cart state
+  const { addToCart, isInCart, removeFromCart } = useCart();
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -136,7 +141,7 @@ Please confirm deliverable verification and commercial licensing documents.`;
 
   return (
     <div
-      className="min-h-screen font-sans selection:bg-[#9CEE69] selection:text-black pt-[70px]"
+      className="min-h-screen font-sans selection:bg-[#9CEE69] selection:text-black pt-0"
       style={{ backgroundColor: '#121316', color: '#F8FAFC' }}
     >
       {/* ─── 1. Breadcrumb ─── */}
@@ -276,82 +281,110 @@ Please confirm deliverable verification and commercial licensing documents.`;
               }}
             >
               {/* Aspect Ratio 16:9 Banner Mockup */}
-              <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#16181D]">
-                {/* Glow & Atmospheric Gradient */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `radial-gradient(ellipse at 60% 40%, ${product.colorFrom}30 0%, transparent 70%), linear-gradient(135deg, ${product.colorFrom}15, ${product.colorTo}10)`,
-                  }}
-                />
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#0B0D11] border-b border-[#2D323E]">
+                {product.thumbnailUrl ? (
+                  <div className="relative w-full h-full overflow-hidden group">
+                    <img
+                      src={product.thumbnailUrl}
+                      alt={product.name}
+                      className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    {/* Subtle inner edge sheen for crisp showcase frame */}
+                    <div className="absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] pointer-events-none" />
 
-                {/* Subtle Grid Overlay */}
-                <div
-                  className="absolute inset-0 opacity-[0.06]"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
-                    backgroundSize: '24px 24px',
-                  }}
-                />
-
-                {/* Centered Software Frame Mockup */}
-                <div className="absolute inset-x-6 top-8 bottom-6 flex flex-col items-center justify-center">
-                  <div
-                    className="w-full max-w-[420px] rounded-2xl border p-5 sm:p-6 flex flex-col items-center justify-center backdrop-blur-md"
-                    style={{
-                      backgroundColor: 'rgba(28, 31, 38, 0.85)',
-                      borderColor: 'rgba(255, 255, 255, 0.1)',
-                      boxShadow: `0 16px 50px ${product.glow}`,
-                    }}
-                  >
-                    {/* Window Controls */}
-                    <div className="w-full flex items-center justify-between pb-3 mb-3 border-b border-white/5">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
-                      </div>
-                      <span className="text-[9px] uppercase tracking-wider text-slate-400 font-mono">
-                        {product.slug}.kiaan
+                    {/* Category pill on top-right of image */}
+                    <div className="absolute top-4 right-4 z-10 pointer-events-none">
+                      <span
+                        className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border backdrop-blur-md shadow-lg"
+                        style={{
+                          backgroundColor: 'rgba(15, 17, 21, 0.85)',
+                          borderColor: 'rgba(255, 255, 255, 0.18)',
+                          color: '#F8FAFC',
+                        }}
+                      >
+                        {product.category}
                       </span>
                     </div>
-
-                    {/* App Icon */}
+                  </div>
+                ) : (
+                  <>
+                    {/* Glow & Atmospheric Gradient */}
                     <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center border my-2"
+                      className="absolute inset-0"
                       style={{
-                        background: `linear-gradient(135deg, ${product.colorFrom}35, ${product.colorTo}35)`,
-                        borderColor: `${product.colorFrom}60`,
+                        background: `radial-gradient(ellipse at 60% 40%, ${product.colorFrom}30 0%, transparent 70%), linear-gradient(135deg, ${product.colorFrom}15, ${product.colorTo}10)`,
                       }}
-                    >
-                      <IconComponent size={32} style={{ color: product.colorFrom }} />
-                    </div>
+                    />
 
-                    <h2 className="text-sm sm:text-base font-bold text-center mt-2 line-clamp-1" style={{ color: '#F8FAFC' }}>
-                      {product.name}
-                    </h2>
-                    <span className="text-xs text-center text-slate-400 mt-0.5 line-clamp-1">
-                      {product.headline}
-                    </span>
+                    {/* Subtle Grid Overlay */}
+                    <div
+                      className="absolute inset-0 opacity-[0.06]"
+                      style={{
+                        backgroundImage:
+                          'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
+                        backgroundSize: '24px 24px',
+                      }}
+                    />
 
-                    {/* Tech chips inside banner */}
-                    <div className="flex flex-wrap items-center justify-center gap-1.5 mt-3">
-                      {product.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-[9px] font-semibold px-2 py-0.5 rounded"
+                    {/* Centered Software Frame Mockup */}
+                    <div className="absolute inset-x-6 top-8 bottom-6 flex flex-col items-center justify-center">
+                      <div
+                        className="w-full max-w-[420px] rounded-2xl border p-5 sm:p-6 flex flex-col items-center justify-center backdrop-blur-md"
+                        style={{
+                          backgroundColor: 'rgba(28, 31, 38, 0.85)',
+                          borderColor: 'rgba(255, 255, 255, 0.1)',
+                          boxShadow: `0 16px 50px ${product.glow}`,
+                        }}
+                      >
+                        {/* Window Controls */}
+                        <div className="w-full flex items-center justify-between pb-3 mb-3 border-b border-white/5">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70" />
+                            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
+                          </div>
+                          <span className="text-[9px] uppercase tracking-wider text-slate-400 font-mono">
+                            {product.slug}.kiaan
+                          </span>
+                        </div>
+
+                        {/* App Icon */}
+                        <div
+                          className="w-16 h-16 rounded-2xl flex items-center justify-center border my-2"
                           style={{
-                            backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                            color: '#94A3B8',
+                            background: `linear-gradient(135deg, ${product.colorFrom}35, ${product.colorTo}35)`,
+                            borderColor: `${product.colorFrom}60`,
                           }}
                         >
-                          {tech}
+                          <IconComponent size={32} style={{ color: product.colorFrom }} />
+                        </div>
+
+                        <h2 className="text-sm sm:text-base font-bold text-center mt-2 line-clamp-1" style={{ color: '#F8FAFC' }}>
+                          {product.name}
+                        </h2>
+                        <span className="text-xs text-center text-slate-400 mt-0.5 line-clamp-1">
+                          {product.headline}
                         </span>
-                      ))}
+
+                        {/* Tech chips inside banner */}
+                        <div className="flex flex-wrap items-center justify-center gap-1.5 mt-3">
+                          {product.techStack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="text-[9px] font-semibold px-2 py-0.5 rounded"
+                              style={{
+                                backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                                color: '#94A3B8',
+                              }}
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
 
               {/* Action Bar Directly Below Poster (Screenshot 1: Live Demo, Handover Request) */}
@@ -826,6 +859,52 @@ Please confirm deliverable verification and commercial licensing documents.`;
                 <span>Request Source Code & License</span>
                 <ArrowRight size={14} />
               </button>
+
+              {/* Add to Cart / View Cart Secondary Actions */}
+              <div className="mt-2.5 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (isInCart(product.id)) {
+                      removeFromCart(product.id);
+                    } else {
+                      addToCart(product, selectedLicense);
+                    }
+                  }}
+                  className="flex-1 py-3 px-3 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 border transition-all duration-200 cursor-pointer active:scale-95"
+                  style={{
+                    backgroundColor: isInCart(product.id) ? 'rgba(156,238,105,0.14)' : 'rgba(255,255,255,0.03)',
+                    borderColor: isInCart(product.id) ? '#9CEE69' : '#2D323E',
+                    color: isInCart(product.id) ? '#9CEE69' : '#F8FAFC',
+                  }}
+                >
+                  {isInCart(product.id) ? (
+                    <>
+                      <Check size={14} />
+                      <span>In Cart</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart size={14} />
+                      <span>Add to Cart</span>
+                    </>
+                  )}
+                </button>
+
+                {isInCart(product.id) && (
+                  <Link
+                    href="/marketplace/cart"
+                    className="py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all duration-200 cursor-pointer hover:brightness-110 active:scale-95"
+                    style={{
+                      backgroundColor: '#9CEE69',
+                      color: '#000000',
+                    }}
+                  >
+                    <span>View Cart</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                )}
+              </div>
 
               <p className="text-[10px] text-center mt-2.5" style={{ color: '#64748B' }}>
                 Direct engineering delivery • Verification before payment

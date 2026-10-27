@@ -58,6 +58,8 @@ export interface MarketplaceProduct {
   demoUrl?: string;
   /** YouTube walkthrough URL (if available) */
   youtubeUrl?: string;
+  /** Commercial CodeCanyon/Codester showcase thumbnail banner */
+  thumbnailUrl?: string;
   /**
    * SAMPLE placeholder pricing in INR.
    * isSamplePrice is always true until management approves real prices.
@@ -106,6 +108,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     colorFrom: '#6366f1',
     colorTo: '#3b82f6',
     glow: 'rgba(99, 102, 241, 0.25)',
+    thumbnailUrl: '/images/marketplace/society-maintenance.jpg',
     techStack: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
     readiness: 'full-stack',
     features: [
@@ -138,6 +141,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     colorFrom: '#3b82f6',
     colorTo: '#06b6d4',
     glow: 'rgba(59, 130, 246, 0.25)',
+    thumbnailUrl: '/images/marketplace/real-estate-crm.jpg',
     techStack: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
     readiness: 'full-stack',
     features: [
@@ -170,6 +174,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     colorFrom: '#10b981',
     colorTo: '#06b6d4',
     glow: 'rgba(16, 185, 129, 0.25)',
+    thumbnailUrl: '/images/marketplace/hospital-erp.jpg',
     techStack: ['React', 'Node.js', 'MySQL', 'Tailwind CSS'],
     readiness: 'full-stack',
     features: [
@@ -202,6 +207,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     colorFrom: '#f59e0b',
     colorTo: '#ef4444',
     glow: 'rgba(245, 158, 11, 0.25)',
+    thumbnailUrl: '/images/marketplace/campus-erp.jpg',
     techStack: ['React', 'Node.js', 'MySQL', 'Tailwind CSS'],
     readiness: 'full-stack',
     features: [
@@ -234,6 +240,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     colorFrom: '#8b5cf6',
     colorTo: '#a855f7',
     glow: 'rgba(139, 92, 246, 0.25)',
+    thumbnailUrl: '/images/marketplace/cloud-hrm.jpg',
     techStack: ['React', 'Node.js', 'MySQL', 'Tailwind CSS'],
     readiness: 'full-stack',
     features: [
@@ -266,6 +273,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     colorFrom: '#14b8a6',
     colorTo: '#0ea5e9',
     glow: 'rgba(20, 184, 166, 0.25)',
+    thumbnailUrl: '/images/marketplace/accounting-gst.jpg',
     techStack: ['React', 'Node.js', 'MySQL', 'Tailwind CSS'],
     readiness: 'full-stack',
     features: [

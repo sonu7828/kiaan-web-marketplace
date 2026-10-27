@@ -133,7 +133,7 @@ export const Navbar = () => {
     return (
         <>
             <nav 
-                className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,height] duration-300 transform-gpu ${isScrolled ? 'bg-black/85 backdrop-blur-md border-b border-white/5 h-[52px]' : 'bg-transparent border-transparent h-[70px]'}`}
+                className="fixed top-0 left-0 right-0 z-50 w-full h-[64px] bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/40 transform-gpu"
                 style={{ WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden' }}
             >
                 {/* Scroll Progress Bar - Wrapped to prevent overflow from spring overshoot */}
@@ -145,7 +145,7 @@ export const Navbar = () => {
                 </div>
 
                 {/* Digital Pulse Line */}
-                <div className={`absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent transition-opacity duration-1000 ${isScrolled ? 'opacity-100' : 'opacity-0'}`} />
+                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
                 <div className="w-full max-w-[1920px] mx-auto px-3 sm:px-4 lg:px-6 2xl:px-8 h-full flex items-center justify-between">
                     <Link href="/" className="group text-[1.1rem] xl:text-[1.2rem] 2xl:text-[1.45rem] font-display uppercase tracking-tight leading-none transition-all duration-300 flex items-center relative z-50 shrink-0 mr-2 xl:mr-3 2xl:mr-6">
@@ -329,6 +329,7 @@ export const Navbar = () => {
                     <button
                         className="xl:hidden relative z-50 p-2 text-white"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="Toggle menu"
                     >
                         {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                     </button>

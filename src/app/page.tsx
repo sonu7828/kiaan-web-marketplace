@@ -502,8 +502,7 @@ export default function Home() {
                     })
                 }}
             />
-            {/* Nav Padding */}
-            <div className="h-16" />
+            {/* Nav Padding handled naturally by sticky navbar */}
 
             {/* Main Hero Section */}
             <section className="w-full pt-8 sm:pt-12 pb-0 mb-0">

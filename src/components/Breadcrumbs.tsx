@@ -137,7 +137,7 @@ export function Breadcrumbs() {
     });
 
     return (
-        <div className="relative z-40 bg-zinc-950/20 border-b border-zinc-900/50 py-3 mt-[70px]">
+        <div className="relative z-40 bg-zinc-950/20 border-b border-zinc-900/50 py-3 mt-0">
             <div className="container mx-auto px-6 flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 flex-wrap gap-y-1">
                 <Link href="/" className="hover:text-yellow-500 transition-colors flex items-center gap-1.5 py-1">
                     <Home size={12} className="text-zinc-400 group-hover:text-yellow-500" />

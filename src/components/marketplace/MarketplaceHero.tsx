@@ -6,8 +6,8 @@ import { totalMarketplaceProducts } from '@/data/marketplace-software-data';
 
 export default function MarketplaceHero() {
   return (
-    <section className="relative z-10 pt-[80px] sm:pt-[88px] pb-4 sm:pb-6">
-      <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
+    <section className="relative z-10 pt-6 sm:pt-8 pb-4 sm:pb-6">
+      <div className="container mx-auto px-4 lg:px-8 max-w-[1280px]">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 w-full">
           {/* Left: Headings */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left flex-1 min-w-0">
